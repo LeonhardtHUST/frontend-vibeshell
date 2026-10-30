@@ -31,7 +31,7 @@ export function packageRoot(): string {
 }
 
 export function canonicalWorkspace(directory: string): string {
-  return realpathSync(resolve(directory));
+  return realpathSync.native(resolve(directory));
 }
 
 export function workspaceKey(workspace: string): string {

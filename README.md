@@ -124,6 +124,8 @@ pnpm run smoke:agents
 
 该命令使用操作系统临时目录，每个后端独立调用 `visitor_me` 并验证回复标记。
 任一后端认证/协议检查失败均返回非零，不用 fake 测试替代真实连接结论。
+当前实测中 Codex 通过；CodeBuddy 需要本机认证，OpenCode v2.1.4 的 MCP 工具调用尚未通过。
+详见[真实模型检查记录](https://github.com/HUSTRadio/dev-shell/blob/main/docs/real-smoke-2026-10-30.md)。
 
 ## 来源与参考
 

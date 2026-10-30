@@ -11,8 +11,8 @@ export function acquireWorkbench(config: ServerConfig) {
   mkdirSync(config.dataDir, {recursive: true, mode: 0o700});
   mkdirSync(dirname(config.databasePath), {recursive: true, mode: 0o700});
   // Resolve parent junctions too, including when the SQLite file is not created yet.
-  const database = existsSync(config.databasePath) ? realpathSync(config.databasePath)
-    : join(realpathSync(dirname(config.databasePath)), basename(config.databasePath));
+  const database = existsSync(config.databasePath) ? realpathSync.native(config.databasePath)
+    : join(realpathSync.native(dirname(config.databasePath)), basename(config.databasePath));
   config.databasePath = database;
   let release: () => void;
   try {

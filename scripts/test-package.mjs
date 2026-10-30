@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { fork, spawnSync } from "node:child_process";
 import { createServer } from "node:http";
-import { chmod, copyFile, mkdir, mkdtemp, readFile, readdir, writeFile } from "node:fs/promises";
+import { chmod, copyFile, mkdir, mkdtemp, readFile, readdir, realpath, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -16,7 +16,7 @@ const artifacts = path.join(root, ".scratch/artifacts");
 await mkdir(artifacts, {recursive: true});
 runManager("pnpm", ["pack", "--pack-destination", artifacts], root);
 const tarball = path.join(artifacts, "hustradio-dev-shell-0.1.0.tgz");
-const consumer = await mkdtemp(path.join(tmpdir(), "dev-shell-consumer-"));
+const consumer = await mkdtemp(path.join(await realpath.native(tmpdir()), "dev-shell-consumer-"));
 await writeFile(path.join(consumer, "package.json"), JSON.stringify({name: "independent-consumer", private: true}));
 runManager("npm", ["install", "--omit=dev", "--ignore-scripts", "--no-audit", "--no-fund", tarball], consumer);
 const installed = path.join(consumer, "node_modules/@hustradio/dev-shell");

@@ -1,4 +1,4 @@
-import { chmodSync, copyFileSync, existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync } from "node:fs";
+import { chmodSync, copyFileSync, existsSync, mkdirSync, mkdtempSync, realpathSync, readFileSync, readdirSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -26,7 +26,7 @@ const clients: Client[] = [];
 const targets: TargetFixture[] = [];
 
 beforeEach(() => {
-  directory = mkdtempSync(join(tmpdir(), "dev-shell-lifecycle-"));
+  directory = mkdtempSync(join(realpathSync.native(tmpdir()), "dev-shell-lifecycle-"));
   const bin = join(directory, "bin"); mkdirSync(bin); mkdirSync(join(directory, "workspace"));
   const fixture = fileURLToPath(new URL("../fixtures/fake-codebuddy.js", import.meta.url));
   const copiedFixture = join(bin, "fake-codebuddy.js");

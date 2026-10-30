@@ -1,6 +1,6 @@
 import { randomUUID } from "node:crypto";
 import { execFile } from "node:child_process";
-import { mkdir, open, readFile, rm } from "node:fs/promises";
+import { mkdir, open, rm } from "node:fs/promises";
 import path from "node:path";
 import { promisify } from "node:util";
 
@@ -9,35 +9,21 @@ let identitySid: Promise<string> | undefined;
 
 const windowsTool = (name: string) => path.join(process.env.SystemRoot ?? "C:\\Windows", "System32", name);
 
-// Principals that never widen read access beyond the current user: OWNER RIGHTS
-// resolves to the file owner and LOCAL SYSTEM already bypasses DACLs machine-wide.
-const ALLOWED_EXTRA_PRINCIPALS = new Set(["S-1-3-4", "S-1-5-18"]);
-
-/** icacls /save writes Unicode, but some Windows builds fall back to the ANSI code page. */
-export function decodeAcl(bytes: Buffer): string {
-  if (bytes[0] === 0xff && bytes[1] === 0xfe) return bytes.subarray(2).toString("utf16le");
-  if (bytes[0] === 0xfe && bytes[1] === 0xff) {
-    const rest = bytes.subarray(2);
-    return Buffer.from(rest.subarray(0, rest.length - rest.length % 2)).swap16().toString("utf16le");
-  }
-  const sample = bytes.subarray(0, Math.min(bytes.length, 512));
-  let zeros = 0;
-  for (let index = 1; index < sample.length; index += 2) if (sample[index] === 0) zeros += 1;
-  return sample.length >= 4 && zeros >= sample.length / 4 ? bytes.toString("utf16le") : bytes.toString("utf8");
-}
-
-export function assertRestrictedAcl(acl: string, sid: string): void {
-  const entries = [...acl.matchAll(/\(([AD]);([^)]*)\)/g)].map((match) => ({
-    type: match[1]!,
-    principal: (match[2]!.split(";").at(-1) ?? "").toUpperCase(),
-  }));
-  const denied = entries.filter((entry) => entry.type !== "A");
-  const foreign = entries.filter((entry) => entry.principal !== sid.toUpperCase() && !ALLOWED_EXTRA_PRINCIPALS.has(entry.principal));
-  if (entries.length === 0 || denied.length > 0 || foreign.length > 0) {
-    const summary = entries.map((entry) => `${entry.type}:${entry.principal === sid.toUpperCase() ? "self" : entry.principal.startsWith("S-1-") ? entry.principal : "malformed"}`).join(",");
-    throw new Error(`MCP_CONFIG_PERMISSIONS_INVALID (chars=${acl.length}, entries=${entries.length}, acl=[${summary}])`);
-  }
-}
+// Path and SID arrive as environment data, never executable PowerShell text.
+// Construct a fresh DACL so creator-group or inherited grants cannot survive.
+const PROTECT_FILE = String.raw`
+$ErrorActionPreference = 'Stop'
+$sid = [System.Security.Principal.SecurityIdentifier]::new($env:DEV_SHELL_ACL_SID)
+$acl = [System.Security.AccessControl.FileSecurity]::new()
+$acl.SetAccessRuleProtection($true, $false)
+$acl.AddAccessRule([System.Security.AccessControl.FileSystemAccessRule]::new($sid, [System.Security.AccessControl.FileSystemRights]::FullControl, [System.Security.AccessControl.AccessControlType]::Allow))
+[System.IO.File]::SetAccessControl($env:DEV_SHELL_ACL_PATH, $acl)
+$actual = [System.IO.File]::GetAccessControl($env:DEV_SHELL_ACL_PATH)
+$rules = @($actual.GetAccessRules($true, $true, [System.Security.Principal.SecurityIdentifier]) | ForEach-Object {
+  @{sid=$_.IdentityReference.Value; type=$_.AccessControlType.ToString(); inherited=$_.IsInherited; fullControl=(($_.FileSystemRights -band [System.Security.AccessControl.FileSystemRights]::FullControl) -eq [System.Security.AccessControl.FileSystemRights]::FullControl)}
+})
+@{protected=$actual.AreAccessRulesProtected; rules=$rules} | ConvertTo-Json -Compress -Depth 4
+`;
 
 async function protectWindowsFile(file: string): Promise<void> {
   identitySid ??= execute(windowsTool("whoami.exe"), ["/user", "/fo", "csv", "/nh"], { windowsHide: true })
@@ -47,13 +33,14 @@ async function protectWindowsFile(file: string): Promise<void> {
       return sid;
     });
   const sid = await identitySid;
-  await execute(windowsTool("icacls.exe"), [file, "/inheritance:r", "/grant:r", `*${sid}:(F)`], { windowsHide: true });
-  const aclFile = `${file}.acl`;
-  try {
-    await execute(windowsTool("icacls.exe"), [file, "/save", aclFile, "/q"], { windowsHide: true });
-    const acl = decodeAcl(await readFile(aclFile));
-    assertRestrictedAcl(acl, sid);
-  } finally { await rm(aclFile, { force: true }); }
+  const {stdout} = await execute(windowsTool("WindowsPowerShell/v1.0/powershell.exe"), ["-NoLogo", "-NoProfile", "-NonInteractive", "-Command", PROTECT_FILE], {
+    windowsHide: true,
+    env: {...process.env, DEV_SHELL_ACL_PATH: file, DEV_SHELL_ACL_SID: sid},
+  });
+  const actual = JSON.parse(stdout) as {protected: boolean; rules: Array<{sid: string; type: string; inherited: boolean; fullControl: boolean}>};
+  if (!actual.protected || actual.rules?.length !== 1 || actual.rules[0]?.sid !== sid || actual.rules[0].type !== "Allow" || actual.rules[0].inherited || !actual.rules[0].fullControl) {
+    throw new Error("MCP_CONFIG_PERMISSIONS_INVALID");
+  }
 }
 
 export async function createMcpConfig(dataDir: string, sessionId: string, mcpUrl: string, token: string): Promise<string> {

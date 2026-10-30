@@ -1,4 +1,4 @@
-import { existsSync, mkdirSync, mkdtempSync, rmSync, utimesSync } from "node:fs";
+import { existsSync, mkdirSync, mkdtempSync, rmSync, realpathSync, utimesSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { DatabaseSync } from "node:sqlite";
@@ -10,7 +10,7 @@ import { parseCli } from "../../src/cli-options.js";
 let root: string;
 const servers: DevShellServer[] = [];
 beforeEach(() => {
-  root = mkdtempSync(join(tmpdir(), "dev-shell-standalone-"));
+  root = mkdtempSync(join(realpathSync.native(tmpdir()), "dev-shell-standalone-"));
   mkdirSync(join(root, "A")); mkdirSync(join(root, "B"));
   for (const key of ["DEV_SHELL_HOST", "DEV_SHELL_PORT", "DEV_SHELL_WORKSPACE", "DEV_SHELL_DATA_DIR", "DEV_SHELL_DATABASE", "DEV_SHELL_TARGET", "DEV_SHELL_BACKEND"]) vi.stubEnv(key, undefined);
 });

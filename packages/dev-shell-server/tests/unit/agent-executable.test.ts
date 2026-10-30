@@ -3,7 +3,7 @@ import path from "node:path";
 import { tmpdir } from "node:os";
 import { afterEach, expect, it } from "vitest";
 import { resolveCodeBuddyExecutable } from "../../src/agent/executable.js";
-import { assertRestrictedAcl, createMcpConfig, decodeAcl, removeMcpConfig } from "../../src/agent/mcp-config.js";
+import { createMcpConfig, removeMcpConfig } from "../../src/agent/mcp-config.js";
 
 const directories: string[] = [];
 afterEach(async () => { for (const directory of directories.splice(0)) await rm(directory, { recursive: true, force: true }); });
@@ -54,21 +54,4 @@ it("rejects session path traversal and header injection before writing MCP crede
   const root = await directory();
   await expect(createMcpConfig(root, "../escape", "http://127.0.0.1/mcp", "token")).rejects.toThrow("MCP_CONFIG_INVALID");
   await expect(createMcpConfig(root, "session", "http://127.0.0.1/mcp", "token\r\nx: y")).rejects.toThrow("MCP_CONFIG_INVALID");
-});
-
-it("accepts a saved Windows ACL whatever encoding icacls used", () => {
-  const sid = "S-1-5-21-1-2-3-1001";
-  const text = `acl.json\nD:PAI(A;OICI;FA;;;${sid})`;
-  expect(decodeAcl(Buffer.from(`\ufeff${text}`, "utf16le"))).toContain("A;OICI;FA");
-  expect(decodeAcl(Buffer.from(text, "utf8"))).toContain("A;OICI;FA");
-  expect(decodeAcl(Buffer.from(text, "latin1"))).toContain("A;OICI;FA");
-});
-
-it("rejects a saved Windows ACL that grants a deny or a foreign principal", () => {
-  const sid = "S-1-5-21-1-2-3-1001";
-  expect(() => assertRestrictedAcl(`acl.json\nD:PAI(A;OICI;FA;;;${sid})`, sid)).not.toThrow();
-  expect(() => assertRestrictedAcl(`acl.json\nD:PAI(A;OICI;FA;;;${sid})(A;OICI;FA;;;S-1-3-4)`, sid)).not.toThrow();
-  expect(() => assertRestrictedAcl(`acl.json\nD:PAI(A;OICI;FA;;;${sid})(A;OICI;FA;;;S-1-5-32-545)`, sid)).toThrow("MCP_CONFIG_PERMISSIONS_INVALID");
-  expect(() => assertRestrictedAcl(`acl.json\nD:PAI(A;OICI;FA;;;${sid})(D;;FA;;;S-1-5-32-545)`, sid)).toThrow("MCP_CONFIG_PERMISSIONS_INVALID");
-  expect(() => assertRestrictedAcl("", sid)).toThrow("MCP_CONFIG_PERMISSIONS_INVALID");
 });
