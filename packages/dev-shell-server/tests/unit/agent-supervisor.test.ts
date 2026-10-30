@@ -22,10 +22,13 @@ describe("CodeBuddySupervisor", () => {
     const h = await harness();
     const sessionId = randomUUID();
     const done = h.waitTerminal(sessionId);
-    await h.supervisor.start(h.options(sessionId, { prompt: "line one\nline two", settings: settings({ model: "fixture-model" }) }));
+    // A cold Windows runner compiles the native Job launcher on its first call.
+    // Allow that startup cost without changing the explicit timeout/cancel cases.
+    await h.supervisor.start(h.options(sessionId, { prompt: "line one\nline two", settings: settings({ model: "fixture-model", timeoutMs: 45_000 }) }));
     await done;
     await h.supervisor.close();
 
+    expect(h.lastState(sessionId)).toBe("succeeded");
     const report = JSON.parse(await readFile(h.report, "utf8"));
     expect(report.argv).toEqual([
       "--session-id", sessionId,
@@ -56,7 +59,7 @@ describe("CodeBuddySupervisor", () => {
     expect(path.dirname(configPath)).toBe(path.join(h.dataDir, "mcp"));
     await expect(stat(configPath)).rejects.toMatchObject({ code: "ENOENT" });
     expect(h.states.get(sessionId)).toEqual(["queued", "spawning", "running", "succeeded"]);
-  });
+  }, 60_000);
 
   it("treats nonempty stderr as redacted output rather than failure", async () => {
     const h = await harness("stderr");
