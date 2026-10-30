@@ -1,5 +1,5 @@
 import { randomUUID } from "node:crypto";
-import { chmod, mkdtemp, readFile, rm, stat } from "node:fs/promises";
+import { chmod, mkdtemp, readFile, realpath, rm, stat } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -275,7 +275,9 @@ function settings(overrides: Partial<Settings> = {}): Settings {
 }
 
 async function harness(mode = "success") {
-  const root = await mkdtemp(path.join(tmpdir(), "codebuddy-supervisor-"));
+  // Windows runners expose tmpdir as an 8.3 short path while spawned agents report
+  // the canonical cwd, so the fixture root must be canonical too.
+  const root = await mkdtemp(path.join(await realpath(tmpdir()), "codebuddy-supervisor-"));
   const dataDir = path.join(root, "data");
   const workspace = path.join(root, "workspace");
   const report = path.join(root, "report.json");

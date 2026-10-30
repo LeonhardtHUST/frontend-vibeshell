@@ -1,5 +1,5 @@
 import { randomUUID } from "node:crypto";
-import { chmodSync, copyFileSync, existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync } from "node:fs";
+import { chmodSync, copyFileSync, existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, realpathSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -18,7 +18,9 @@ let executable: string;
 let reportPath: string;
 const supervisors: AgentSupervisor[] = [];
 beforeEach(() => {
-  directory = mkdtempSync(path.join(tmpdir(), "dev-shell-backends-"));
+  // Windows runners expose tmpdir as an 8.3 short path while agents report the
+  // canonical cwd, so the fixture root must be canonical as well.
+  directory = mkdtempSync(path.join(realpathSync(tmpdir()), "dev-shell-backends-"));
   const bin = path.join(directory, "bin"); mkdirSync(bin); mkdirSync(path.join(directory, "workspace"));
   const script = path.join(bin, "fake-backend.js");
   copyFileSync(fileURLToPath(new URL("../fixtures/fake-backend.js", import.meta.url)), script);

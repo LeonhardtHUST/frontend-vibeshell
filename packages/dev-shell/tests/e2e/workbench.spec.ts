@@ -8,10 +8,14 @@ const target = (page: Page) => page.frameLocator("iframe[title='开发目标页�
 async function auth(page: Page) { const health = await page.request.get(`${shell}/api/health`); const {workbenchId} = await health.json(); return {authorization: `Bearer ${await page.evaluate(key => localStorage.getItem(key), `dev-shell:owner-token:v2:${workbenchId}`)}`, "x-dev-shell-web": "1"}; }
 async function snapshot(page: Page) { const response = await page.request.get(`${shell}/api/bootstrap`, {headers: await auth(page)}); expect(response.ok()).toBe(true); return (await response.json()).snapshot; }
 async function controls(page: Page, info: TestInfo) {
-  if (!desktop(info)) {
-    const dock = page.locator('button[aria-controls="mobile-control-sheet"]');
-    if (await dock.getAttribute("aria-expanded") === "false") await dock.click();
-  }
+  if (desktop(info)) { await expect(page.getByLabel("任务内容")).toBeVisible(); return; }
+  // The floating dock opens the sheet on pointer interaction at narrow widths, and the
+  // opened sheet then covers the dock itself. Keying off `aria-expanded` races with that
+  // transition, so the sheet's own visibility decides whether a tap is needed and a tap
+  // that is interrupted by the opening sheet still counts as success.
+  const sheet = page.getByRole("dialog", {name: "协作控制面板"});
+  if (!await sheet.isVisible()) await page.locator('button[aria-controls="mobile-control-sheet"]').click({timeout: 4_000}).catch(() => undefined);
+  await expect(sheet).toBeVisible();
   await expect(page.getByLabel("任务内容")).toBeVisible();
 }
 async function closeControls(page: Page, info: TestInfo) {

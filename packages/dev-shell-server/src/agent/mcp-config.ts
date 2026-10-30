@@ -9,6 +9,36 @@ let identitySid: Promise<string> | undefined;
 
 const windowsTool = (name: string) => path.join(process.env.SystemRoot ?? "C:\\Windows", "System32", name);
 
+// Principals that never widen read access beyond the current user: OWNER RIGHTS
+// resolves to the file owner and LOCAL SYSTEM already bypasses DACLs machine-wide.
+const ALLOWED_EXTRA_PRINCIPALS = new Set(["S-1-3-4", "S-1-5-18"]);
+
+/** icacls /save writes Unicode, but some Windows builds fall back to the ANSI code page. */
+export function decodeAcl(bytes: Buffer): string {
+  if (bytes[0] === 0xff && bytes[1] === 0xfe) return bytes.subarray(2).toString("utf16le");
+  if (bytes[0] === 0xfe && bytes[1] === 0xff) {
+    const rest = bytes.subarray(2);
+    return Buffer.from(rest.subarray(0, rest.length - rest.length % 2)).swap16().toString("utf16le");
+  }
+  const sample = bytes.subarray(0, Math.min(bytes.length, 512));
+  let zeros = 0;
+  for (let index = 1; index < sample.length; index += 2) if (sample[index] === 0) zeros += 1;
+  return sample.length >= 4 && zeros >= sample.length / 4 ? bytes.toString("utf16le") : bytes.toString("utf8");
+}
+
+export function assertRestrictedAcl(acl: string, sid: string): void {
+  const entries = [...acl.matchAll(/\(([AD]);([^)]*)\)/g)].map((match) => ({
+    type: match[1]!,
+    principal: (match[2]!.split(";").at(-1) ?? "").toUpperCase(),
+  }));
+  const denied = entries.filter((entry) => entry.type !== "A");
+  const foreign = entries.filter((entry) => entry.principal !== sid.toUpperCase() && !ALLOWED_EXTRA_PRINCIPALS.has(entry.principal));
+  if (entries.length === 0 || denied.length > 0 || foreign.length > 0) {
+    const summary = entries.map((entry) => `${entry.type}:${entry.principal === sid.toUpperCase() ? "self" : entry.principal.startsWith("S-1-") ? entry.principal : "malformed"}`).join(",");
+    throw new Error(`MCP_CONFIG_PERMISSIONS_INVALID (chars=${acl.length}, entries=${entries.length}, acl=[${summary}])`);
+  }
+}
+
 async function protectWindowsFile(file: string): Promise<void> {
   identitySid ??= execute(windowsTool("whoami.exe"), ["/user", "/fo", "csv", "/nh"], { windowsHide: true })
     .then(({ stdout }) => {
@@ -21,11 +51,8 @@ async function protectWindowsFile(file: string): Promise<void> {
   const aclFile = `${file}.acl`;
   try {
     await execute(windowsTool("icacls.exe"), [file, "/save", aclFile, "/q"], { windowsHide: true });
-    const acl = (await readFile(aclFile)).toString("utf16le");
-    const permissions = [...acl.matchAll(/\((A|D);[^)]*;;;([^;)]+)\)/g)];
-    if (!permissions.length || permissions.some((entry) => entry[1] !== "A" || entry[2] !== sid)) {
-      throw new Error("MCP_CONFIG_PERMISSIONS_INVALID");
-    }
+    const acl = decodeAcl(await readFile(aclFile));
+    assertRestrictedAcl(acl, sid);
   } finally { await rm(aclFile, { force: true }); }
 }
 
