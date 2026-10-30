@@ -1,0 +1,38 @@
+{
+  "name": "@hustradio/dev-shell-server",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/cli.ts dev",
+    "start": "tsx src/cli.ts start",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "smoke:codebuddy": "tsx src/cli.ts smoke:codebuddy",
+    "smoke:agents": "tsx src/cli.ts smoke:agents"
+  },
+  "engines": {
+    "node": ">=22.13"
+  },
+  "dependencies": {
+    "@hustradio/dev-shell-contract": "workspace:*",
+    "@modelcontextprotocol/sdk": "^1.18.0",
+    "express": "^5.1.0",
+    "http-proxy": "^1.18.1",
+    "parse5": "^8.0.0",
+    "tough-cookie": "6.0.2",
+    "ws": "^8.18.0",
+    "zod": "^3.25.76",
+    "proper-lockfile": "4.1.2"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.3",
+    "@types/http-proxy": "^1.17.16",
+    "@types/node": "^24.13.3",
+    "@types/ws": "^8.18.1",
+    "tsx": "^4.23.12",
+    "typescript": "~6.0.2",
+    "vitest": "4.1.10",
+    "@types/proper-lockfile": "^4.1.4"
+  }
+}

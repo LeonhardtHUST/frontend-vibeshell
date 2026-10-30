@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.scratch/
+.workbuddy/
+playwright-report/
+test-results/
+*.tgz
+*.tsbuildinfo
+.env
+.env.*
