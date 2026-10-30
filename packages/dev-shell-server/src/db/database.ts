@@ -1,7 +1,7 @@
 import { DatabaseSync } from "node:sqlite";
 import { randomUUID } from "node:crypto";
-import type { EventEnvelope, EventTopic } from "@hustradio/dev-shell-contract";
-import { PROTOCOL_VERSION } from "@hustradio/dev-shell-contract";
+import type { EventEnvelope, EventTopic } from "@leonhardthust/frontend-vibeshell-contract";
+import { PROTOCOL_VERSION } from "@leonhardthust/frontend-vibeshell-contract";
 import { initialMigration, sessionMigration, backendMigration } from "./schema.js";
 
 export type Row = Record<string, unknown>;

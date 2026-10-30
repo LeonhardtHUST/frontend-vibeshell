@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Badge, Button, EmptyState, Input, useToasts } from "@hustradio/unitary-ui";
 import { Plus, Trash2 } from "lucide-react";
-import type { TodoItem } from "@hustradio/dev-shell-contract";
+import type { TodoItem } from "@leonhardthust/frontend-vibeshell-contract";
 import { api } from "../../api/client";
 import { useWorkbench } from "../../api/workbench-store";
 

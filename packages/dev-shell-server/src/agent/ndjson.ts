@@ -1,7 +1,7 @@
 import { StringDecoder } from "node:string_decoder";
 import { sanitizeValue } from "./sanitize.js";
 import type { AgentOutputEvent } from "./types.js";
-import type { AgentBackend } from "@hustradio/dev-shell-contract";
+import type { AgentBackend } from "@leonhardthust/frontend-vibeshell-contract";
 import { normalizeAgentEvent } from "./normalize.js";
 
 const DEFAULT_MAX_LINE_BYTES = 1024 * 1024;

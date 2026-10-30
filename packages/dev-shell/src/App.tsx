@@ -1,7 +1,7 @@
 import { useEffect, useState, type FormEvent } from "react";
 import { Button, Input, useTheme } from "@hustradio/unitary-ui";
 import { KeyRound, Sparkles } from "lucide-react";
-import type { WorkbenchSnapshot } from "@hustradio/dev-shell-contract";
+import type { WorkbenchSnapshot } from "@leonhardthust/frontend-vibeshell-contract";
 import { api, ShellApiError } from "./api/client";
 import { WorkbenchProvider } from "./api/workbench-store";
 import { WorkspaceShell } from "./components/shell/WorkspaceShell";
@@ -42,7 +42,7 @@ export default function App() {
   if (state === "ready" && snapshot) return <WorkbenchProvider initial={snapshot}><WorkspaceShell /></WorkbenchProvider>;
   return <main className="auth-page"><section className="auth-card">
     <div className="auth-card__icon">{state === "login" ? <KeyRound /> : <Sparkles />}</div>
-    <p className="eyebrow">DEV SHELL</p><h1>{state === "login" ? "欢迎回来" : "你的协作开发空间"}</h1>
+    <p className="eyebrow">FRONTEND VIBESHELL</p><h1>{state === "login" ? "欢迎回来" : "你的协作开发空间"}</h1>
     <p className="auth-card__lead">{state === "login" ? "输入此本机工作台的访问 token。它只保存在当前浏览器。" : "在真实页面中选择元素，与 CodeBuddy、Codex、OpenCode v2 共享任务、上下文与进度。"}</p>
     {state === "loading" ? <p role={error ? "alert" : undefined}>{error || "正在连接本机服务…"}</p> : state === "bootstrap" ? <form onSubmit={(event) => void bootstrap(event)}><label>你的显示名称<Input autoFocus value={name} maxLength={80} placeholder="例如：Leon" onChange={(event) => setName(event.target.value)} /></label>{error && <p className="form-error" role="alert">{error}</p>}<Button typeName="submit" loading={busy} disabled={!name.trim()}>初始化工作台</Button></form> : <form onSubmit={(event) => void login(event)}><label>访问 token<Input autoFocus type="password" value={token} placeholder="粘贴本机访问 token" onChange={(event) => setToken(event.target.value)} /></label>{error && <p className="form-error" role="alert">{error}</p>}<Button typeName="submit" loading={busy} disabled={!token.trim()}>进入工作台</Button></form>}
     <div className="auth-card__foot"><span>127.0.0.1</span><span>多访问者实时协作</span><span>暗色优先</span></div>

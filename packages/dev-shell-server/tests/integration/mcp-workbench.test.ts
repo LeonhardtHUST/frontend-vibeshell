@@ -6,7 +6,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { StreamableHTTPClientTransport } from "@modelcontextprotocol/sdk/client/streamableHttp.js";
 import { CallToolResultSchema } from "@modelcontextprotocol/sdk/types.js";
-import type { Message, QueueItem, ResourceLease, ResourceWaiter, TodoItem, TodoList, Visitor, WorkbenchSnapshot } from "@hustradio/dev-shell-contract";
+import type { Message, QueueItem, ResourceLease, ResourceWaiter, TodoItem, TodoList, Visitor, WorkbenchSnapshot } from "@leonhardthust/frontend-vibeshell-contract";
 import { createDevShellServer, type DevShellServer } from "../../src/server.js";
 
 let directory: string;

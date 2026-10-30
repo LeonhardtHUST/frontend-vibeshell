@@ -1,4 +1,4 @@
-# Dev Shell contributor guide
+# Frontend VibeShell contributor guide
 
 Keep web, server and contract private workspace modules; publish only the root CLI.
 Use the released Unitary UI package through public imports. Never add source aliases

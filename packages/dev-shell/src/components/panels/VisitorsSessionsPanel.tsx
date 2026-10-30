@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Badge, Button, EmptyState, Input, useToasts } from "@hustradio/unitary-ui";
 import { Bot, Copy, Plus, Square, UserX } from "lucide-react";
-import type { EventEnvelope } from "@hustradio/dev-shell-contract";
+import type { EventEnvelope } from "@leonhardthust/frontend-vibeshell-contract";
 import { api, EVENT_HISTORY_LIMIT, mergeEventWindow, type VisitorCredentials } from "../../api/client";
 import { useWorkbench } from "../../api/workbench-store";
 import { copyText } from "./QueuePanel";

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { bridgeToParentSchema, type DomDescriptor, type FrameInfo } from "@hustradio/dev-shell-contract";
+import { bridgeToParentSchema, type DomDescriptor, type FrameInfo } from "@leonhardthust/frontend-vibeshell-contract";
 import { api } from "../../api/client";
 
 export interface SelectedElement {descriptor: DomDescriptor; clientPoint: {x: number; y: number}}

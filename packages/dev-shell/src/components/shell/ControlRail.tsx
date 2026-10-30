@@ -1,7 +1,7 @@
 import { forwardRef } from "react";
 import { Badge, Button, Tabs } from "@hustradio/unitary-ui";
 import { Activity, CheckSquare2, KeyRound, ListTodo, Settings, UsersRound } from "lucide-react";
-import type { DomDescriptor } from "@hustradio/dev-shell-contract";
+import type { DomDescriptor } from "@leonhardthust/frontend-vibeshell-contract";
 import { useWorkbench } from "../../api/workbench-store";
 import { PromptComposer, type PromptComposerHandle } from "../composer/PromptComposer";
 import { QueuePanel } from "../panels/QueuePanel";
@@ -19,7 +19,7 @@ interface Props {
 export const ControlRail = forwardRef<HTMLElement, Props>(function ControlRail({tab, setTab, selection, onRemoveSelection, onSend, onQueue, onOpenSettings, composerRef}, ref) {
   const {connection, snapshot} = useWorkbench();
   return <aside className="control-rail" ref={ref} aria-label="开发协作控制栏">
-    <header className="brand"><div className="brand__mark">U</div><div><h1>Unitary <span>DevShell</span></h1><p>协作开发控制台</p></div><Button svgOnly type="tertiary" size="small" typeName="button" aria-label="设置" onClick={onOpenSettings}><Settings /></Button></header>
+    <header className="brand"><div className="brand__mark">V</div><div><h1>Frontend <span>VibeShell</span></h1><p>协作开发控制台</p></div><Button svgOnly type="tertiary" size="small" typeName="button" aria-label="设置" onClick={onOpenSettings}><Settings /></Button></header>
     <div className={`connection connection--${connection}`} role="status"><span className="connection__dot" aria-hidden="true" />{connection === "online" ? "实时同步" : connection === "connecting" ? "正在连接" : connection === "reconnecting" ? "连接中断，正在重试" : "离线"}<Badge className="connection__backend">{snapshot.settings.backend ?? "codebuddy"}</Badge></div>
     <PromptComposer ref={composerRef} selection={selection} onRemoveSelection={onRemoveSelection} onSend={onSend} onQueue={onQueue} />
     <Tabs ariaLabel="协作功能" compact selected={tab} setSelected={setTab} tabs={[

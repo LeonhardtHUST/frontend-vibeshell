@@ -1,5 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
-import { PROTOCOL_VERSION, serverWsMessageSchema, workbenchSnapshotSchema, type WorkbenchSnapshot } from "@hustradio/dev-shell-contract";
+import { PROTOCOL_VERSION, serverWsMessageSchema, workbenchSnapshotSchema, type WorkbenchSnapshot } from "@leonhardthust/frontend-vibeshell-contract";
 import { api } from "./client";
 
 export type ConnectionStatus = "connecting" | "online" | "reconnecting" | "offline";

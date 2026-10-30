@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { WorkbenchSnapshot } from "@hustradio/dev-shell-contract";
+import type { WorkbenchSnapshot } from "@leonhardthust/frontend-vibeshell-contract";
 import { ApiClient, ShellApiError } from "../../src/api/client";
 import { LEGACY_TOKEN_KEY, restoreAuthentication, tokenKey } from "../../src/api/auth";
 

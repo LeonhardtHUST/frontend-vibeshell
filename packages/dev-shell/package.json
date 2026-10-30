@@ -1,5 +1,5 @@
 {
-  "name": "@hustradio/dev-shell-web",
+  "name": "@leonhardthust/frontend-vibeshell-web",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -11,7 +11,7 @@
     "test:e2e": "playwright test"
   },
   "dependencies": {
-    "@hustradio/dev-shell-contract": "workspace:*",
+    "@leonhardthust/frontend-vibeshell-contract": "workspace:*",
     "@hustradio/unitary-ui": "0.1.0-beta.1",
     "lucide-react": "^1.28.0",
     "react": "^19.0.0",

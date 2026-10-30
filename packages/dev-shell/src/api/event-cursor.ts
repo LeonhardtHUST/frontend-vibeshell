@@ -1,4 +1,4 @@
-import type { EventEnvelope } from "@hustradio/dev-shell-contract";
+import type { EventEnvelope } from "@leonhardthust/frontend-vibeshell-contract";
 
 export class EventCursor {
   private ids = new Set<string>();

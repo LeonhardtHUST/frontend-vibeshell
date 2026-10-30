@@ -1,9 +1,9 @@
 import { createHash, randomBytes, randomUUID, timingSafeEqual } from "node:crypto";
-import { WORKBENCH_SESSION_SCOPE, formatQueueBundle } from "@hustradio/dev-shell-contract";
+import { WORKBENCH_SESSION_SCOPE, formatQueueBundle } from "@leonhardthust/frontend-vibeshell-contract";
 import type {
   AgentBackend, AgentSession, Message, QueueItem, ResourceLease, ResourceWaiter, Settings,
   TodoItem, TodoList, Visitor, WorkbenchSnapshot,
-} from "@hustradio/dev-shell-contract";
+} from "@leonhardthust/frontend-vibeshell-contract";
 import type { StoredEvent } from "../db/database.js";
 import { WorkbenchDatabase, type Row } from "../db/database.js";
 import { conflict, DomainError, forbidden, notFound } from "./errors.js";

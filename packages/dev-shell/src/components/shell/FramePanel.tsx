@@ -2,7 +2,7 @@ import { useEffect, useState, type FormEvent } from "react";
 import { createPortal } from "react-dom";
 import { Button, Input, Spinner } from "@hustradio/unitary-ui";
 import { Crosshair, ExternalLink, Globe2, RefreshCw, Settings } from "lucide-react";
-import type { DomDescriptor, FrameInfo } from "@hustradio/dev-shell-contract";
+import type { DomDescriptor, FrameInfo } from "@leonhardthust/frontend-vibeshell-contract";
 import { api } from "../../api/client";
 import { useWorkbench } from "../../api/workbench-store";
 import { useFrameBridge, type SelectedElement } from "../bridge/use-frame-bridge";

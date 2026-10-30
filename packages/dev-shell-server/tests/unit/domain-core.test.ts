@@ -2,7 +2,7 @@ import { mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import { formatQueueBundle, type Settings } from "@hustradio/dev-shell-contract";
+import { formatQueueBundle, type Settings } from "@leonhardthust/frontend-vibeshell-contract";
 import { WorkbenchDatabase } from "../../src/db/database.js";
 import { WorkbenchService } from "../../src/domain/workbench.js";
 

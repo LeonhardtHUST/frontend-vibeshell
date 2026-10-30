@@ -3,7 +3,7 @@ import { createHash } from "node:crypto";
 import { homedir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { agentBackendSchema, type Settings } from "@hustradio/dev-shell-contract";
+import { agentBackendSchema, type Settings } from "@leonhardthust/frontend-vibeshell-contract";
 
 export interface ServerConfig {
   host: string;
@@ -23,7 +23,7 @@ export function packageRoot(): string {
   let directory = dirname(fileURLToPath(import.meta.url));
   while (true) {
     const manifest = join(directory, "package.json");
-    if (existsSync(manifest) && JSON.parse(readFileSync(manifest, "utf8")).name === "@hustradio/dev-shell") return directory;
+    if (existsSync(manifest) && JSON.parse(readFileSync(manifest, "utf8")).name === "@leonhardthust/frontend-vibeshell") return directory;
     const parent = dirname(directory);
     if (parent === directory) throw new Error("Dev Shell package manifest not found");
     directory = parent;

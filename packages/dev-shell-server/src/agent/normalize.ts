@@ -1,4 +1,4 @@
-import type { AgentBackend } from "@hustradio/dev-shell-contract";
+import type { AgentBackend } from "@leonhardthust/frontend-vibeshell-contract";
 import type { AgentOutputEvent } from "./types.js";
 
 const object = (value: unknown): Record<string, unknown> | undefined => value && typeof value === "object" && !Array.isArray(value) ? value as Record<string, unknown> : undefined;

@@ -2,7 +2,7 @@ import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { WebSocket } from "ws";
 import { runInNewContext } from "node:vm";
 import { request as httpRequest } from "node:http";
-import type { FrameInfo } from "@hustradio/dev-shell-contract";
+import type { FrameInfo } from "@leonhardthust/frontend-vibeshell-contract";
 import { FrameManager, ProxyError } from "../../src/proxy/index.js";
 import { startTargetFixture, type TargetFixture } from "../fixtures/target-fixture.js";
 import { createTargetLookup, isAllowedTargetIp } from "../../src/proxy/target-policy.js";

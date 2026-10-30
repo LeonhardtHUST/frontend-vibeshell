@@ -11,7 +11,7 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: [
-      { find: "@hustradio/dev-shell-contract", replacement: path.join(repository, "packages/dev-shell-contract/src/index.ts") },
+      { find: "@leonhardthust/frontend-vibeshell-contract", replacement: path.join(repository, "packages/dev-shell-contract/src/index.ts") },
       { find: "@shell", replacement: path.join(repository, "packages/dev-shell/src") },
     ],
     dedupe: ["react", "react-dom"],

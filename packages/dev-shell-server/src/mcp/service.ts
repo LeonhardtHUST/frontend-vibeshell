@@ -18,7 +18,7 @@ import type {
   acquireLeaseSchema,
   sendMessageSchema,
   updateTodoItemSchema,
-} from "@hustradio/dev-shell-contract";
+} from "@leonhardthust/frontend-vibeshell-contract";
 import type { z } from "zod";
 
 export type MaybePromise<T> = T | Promise<T>;

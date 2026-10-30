@@ -3,7 +3,7 @@ import type { Request, Response } from "express";
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { isInitializeRequest } from "@modelcontextprotocol/sdk/types.js";
-import type { Visitor } from "@hustradio/dev-shell-contract";
+import type { Visitor } from "@leonhardthust/frontend-vibeshell-contract";
 import { createDevShellMcpServer } from "./server.js";
 import type { MaybePromise, McpServices } from "./service.js";
 

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import type { EventEnvelope } from "@hustradio/dev-shell-contract";
-import { PROTOCOL_VERSION } from "@hustradio/dev-shell-contract";
+import type { EventEnvelope } from "@leonhardthust/frontend-vibeshell-contract";
+import { PROTOCOL_VERSION } from "@leonhardthust/frontend-vibeshell-contract";
 import { EventCursor } from "../../src/api/event-cursor";
 
 const event = (sequence: number, id: string): EventEnvelope => ({type: "event", protocolVersion: PROTOCOL_VERSION, eventId: id, sequence, replay: false, topic: "queue", actorId: null, entityId: "entity", data: {}, occurredAt: new Date(0).toISOString()});

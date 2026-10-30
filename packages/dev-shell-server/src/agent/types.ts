@@ -1,4 +1,4 @@
-import type { AgentBackend, AgentSession, Settings } from "@hustradio/dev-shell-contract";
+import type { AgentBackend, AgentSession, Settings } from "@leonhardthust/frontend-vibeshell-contract";
 
 export type AgentSessionState = AgentSession["status"];
 

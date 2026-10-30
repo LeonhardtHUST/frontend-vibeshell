@@ -1,7 +1,7 @@
 import { forwardRef, useImperativeHandle, useRef, useState } from "react";
 import { Button, Textarea } from "@hustradio/unitary-ui";
 import { ListPlus, Send } from "lucide-react";
-import type { DomDescriptor } from "@hustradio/dev-shell-contract";
+import type { DomDescriptor } from "@leonhardthust/frontend-vibeshell-contract";
 import { resolveComposerShortcut } from "./shortcuts";
 import { SelectionChip } from "./SelectionChip";
 

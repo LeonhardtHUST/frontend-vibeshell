@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { StreamableHTTPClientTransport } from "@modelcontextprotocol/sdk/client/streamableHttp.js";
-import type { AgentSession, EventEnvelope, FrameInfo, QueueItem, Visitor, WorkbenchSnapshot } from "@hustradio/dev-shell-contract";
+import type { AgentSession, EventEnvelope, FrameInfo, QueueItem, Visitor, WorkbenchSnapshot } from "@leonhardthust/frontend-vibeshell-contract";
 import { loadConfig } from "../../src/config.js";
 import { createDevShellServer, type DevShellServer } from "../../src/server.js";
 import { startTargetFixture, type TargetFixture } from "../fixtures/target-fixture.js";

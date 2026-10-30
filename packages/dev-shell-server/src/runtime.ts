@@ -4,7 +4,7 @@ import { dirname, basename, join } from "node:path";
 import { DatabaseSync } from "node:sqlite";
 import lockfile from "proper-lockfile";
 import { canonicalWorkspace, workspaceKey, type ServerConfig } from "./config.js";
-import type { Settings } from "@hustradio/dev-shell-contract";
+import type { Settings } from "@leonhardthust/frontend-vibeshell-contract";
 import type { WorkbenchDatabase } from "./db/database.js";
 
 export function acquireWorkbench(config: ServerConfig) {

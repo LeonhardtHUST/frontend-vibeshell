@@ -3,7 +3,7 @@ import { mkdir, mkdtemp, writeFile, readFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { runAgentSmoke } from "./agent/smoke.js";
-import type { AgentBackend } from "@hustradio/dev-shell-contract";
+import type { AgentBackend } from "@leonhardthust/frontend-vibeshell-contract";
 import { HELP, parseCli } from "./cli-options.js";
 import { packageRoot } from "./config.js";
 
@@ -21,10 +21,10 @@ if (command === "dev" || command === "start") {
   process.on("message", message => {if (message === "dev-shell:shutdown") void shutdown();});
   try {
     const address = await server.listen();
-    console.log(`Dev Shell listening on http://${server.config.host.includes(":") ? `[${server.config.host}]` : server.config.host}:${address.port}`);
+    console.log(`Frontend VibeShell listening on http://${server.config.host.includes(":") ? `[${server.config.host}]` : server.config.host}:${address.port}`);
     console.log(`Workspace: ${server.config.workspace}`);
   } catch (error) {
-    console.error(error instanceof Error ? error.message : "Unable to start Dev Shell");
+    console.error(error instanceof Error ? error.message : "Unable to start Frontend VibeShell");
     await server.close(); process.exitCode = 1;
   }
 } else if (command === "smoke:codebuddy" || command === "smoke:agents") {
@@ -64,4 +64,4 @@ if (command === "dev" || command === "start") {
   throw new Error(HELP);
 }
 }
-main().catch(error => { console.error(error instanceof Error ? error.message : "Unable to start Dev Shell"); process.exitCode = 1; });
+main().catch(error => { console.error(error instanceof Error ? error.message : "Unable to start Frontend VibeShell"); process.exitCode = 1; });

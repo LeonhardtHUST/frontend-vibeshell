@@ -8,7 +8,7 @@ import {
   bridgeToParentSchema,
   type BridgeToParentMessage,
   type FrameInfo,
-} from "@hustradio/dev-shell-contract";
+} from "@leonhardthust/frontend-vibeshell-contract";
 import { ProxyError, sendProxyError } from "./errors.js";
 import { BRIDGE_PATH, handleProxyResponse } from "./http-transform.js";
 import { FrameCookieJar } from "./cookie-jar.js";

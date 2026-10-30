@@ -1,4 +1,4 @@
-# Dev Shell
+# Frontend VibeShell
 
 A reusable, local development workbench for **CodeBuddy, Codex and OpenCode v2**.
 Preview your application, select page elements, queue tasks, and coordinate humans
@@ -7,13 +7,13 @@ and agents through authenticated REST, WebSocket and MCP interfaces.
 ## 安装与使用
 
 需要 Node.js **22.13+**（建议 Node 24），以及至少一个已安装、已登录的后端 CLI。
-项目仍由自己的开发服务器运行；Dev Shell 接收其 URL，不接管项目构建。
+项目仍由自己的开发服务器运行；Frontend VibeShell 接收其 URL，不接管项目构建。
 
-本项目尚未发布到 npm。先从源码构建，或安装 CI 产出的 tarball：
+安装 npm 包并运行：
 
 ```sh
-npm install --save-dev ./hustradio-dev-shell-0.1.0.tgz
-npx dev-shell --workspace . --target http://127.0.0.1:5173 --backend codex
+npm install --save-dev @leonhardthust/frontend-vibeshell
+npx frontend-vibeshell --workspace . --target http://127.0.0.1:5173 --backend codex
 ```
 
 打开终端打印的本机地址，默认为 `http://127.0.0.1:5274`。首次输入显示名称初始化工作台。
@@ -21,8 +21,8 @@ npx dev-shell --workspace . --target http://127.0.0.1:5173 --backend codex
 或由已登录的人类访问者签发新的凭据。不要分享浏览器存储或数据目录。
 
 ```text
-dev-shell [start|dev] [options]
-dev-shell smoke:agents
+frontend-vibeshell [start|dev] [options]
+frontend-vibeshell smoke:agents
 
 --workspace <path>   工作目录，默认当前目录；运行期间固定
 --target <url>       预览 URL，并登记它的精确 origin
@@ -32,6 +32,9 @@ dev-shell smoke:agents
 --help              查看帮助
 --version           查看版本
 ```
+
+`dev-shell` 命令继续作为兼容别名。现有 `DEV_SHELL_*` 环境变量、MCP 的 `dev-shell` 标识、
+浏览器凭据键和数据目录均保持兼容。
 
 新工作台默认 CodeBuddy 后端，未提供目标时显示内置示例页，可在设置中更改目标。
 显式参数优先于对应环境变量、已保存设置和默认值。显式更换后端会清除旧模型选择；
@@ -125,7 +128,7 @@ pnpm run smoke:agents
 该命令使用操作系统临时目录，每个后端独立调用 `visitor_me` 并验证回复标记。
 任一后端认证/协议检查失败均返回非零，不用 fake 测试替代真实连接结论。
 当前实测中 Codex 通过；CodeBuddy 需要本机认证，OpenCode v2.1.4 的 MCP 工具调用尚未通过。
-详见[真实模型检查记录](https://github.com/HUSTRadio/dev-shell/blob/main/docs/real-smoke-2026-10-30.md)。
+详见[真实模型检查记录](https://github.com/LeonhardtHUST/frontend-vibeshell/blob/main/docs/real-smoke-2026-10-30.md)。
 
 ## 来源与参考
 

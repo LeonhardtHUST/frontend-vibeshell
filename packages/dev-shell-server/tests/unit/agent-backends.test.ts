@@ -4,7 +4,7 @@ import { tmpdir } from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { AgentBackend, Settings } from "@hustradio/dev-shell-contract";
+import type { AgentBackend, Settings } from "@leonhardthust/frontend-vibeshell-contract";
 import { AgentSupervisor, NdjsonParser, runAgentSmoke, runCodeBuddySmoke } from "../../src/agent/index.js";
 import type { AgentOutputEvent, AgentSessionState, StartAgentOptions } from "../../src/agent/types.js";
 import { prepareAgentLaunch } from "../../src/agent/backends.js";

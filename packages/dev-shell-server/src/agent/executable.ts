@@ -1,6 +1,6 @@
 import { access, readFile, realpath, stat } from "node:fs/promises";
 import path from "node:path";
-import type { AgentBackend } from "@hustradio/dev-shell-contract";
+import type { AgentBackend } from "@leonhardthust/frontend-vibeshell-contract";
 
 export interface ResolvedExecutable {
   command: string;

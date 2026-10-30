@@ -1,4 +1,4 @@
-import type { AgentSession, Visitor } from "@hustradio/dev-shell-contract";
+import type { AgentSession, Visitor } from "@leonhardthust/frontend-vibeshell-contract";
 import { eventEnvelope } from "../db/database.js";
 import { DomainError } from "../domain/errors.js";
 import type { WorkbenchService } from "../domain/workbench.js";

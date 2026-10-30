@@ -18,7 +18,7 @@ await build({
   format: "esm",
   target: "node22.13",
   packages: "external",
-  alias: {"@hustradio/dev-shell-contract": path.join(root, "packages/dev-shell-contract/src/index.ts")},
+  alias: {"@leonhardthust/frontend-vibeshell-contract": path.join(root, "packages/dev-shell-contract/src/index.ts")},
   banner: {js: "#!/usr/bin/env node"},
   logLevel: "info",
 });

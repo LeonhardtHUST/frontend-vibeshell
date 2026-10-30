@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button, Input, Modal, ModalContent, ModalDescription, ModalFooter, ModalHeader, ModalTitle, useTheme, useToasts } from "@hustradio/unitary-ui";
-import type { Settings } from "@hustradio/dev-shell-contract";
+import type { Settings } from "@leonhardthust/frontend-vibeshell-contract";
 import { api } from "../../api/client";
 import { useWorkbench } from "../../api/workbench-store";
 

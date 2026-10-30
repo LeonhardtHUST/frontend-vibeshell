@@ -3,7 +3,7 @@ import { defineConfig } from "vitest/config";
 
 export default defineConfig({
   root: import.meta.dirname,
-  resolve: { alias: { "@hustradio/dev-shell-contract": path.resolve(import.meta.dirname, "../dev-shell-contract/src/index.ts") } },
+  resolve: { alias: { "@leonhardthust/frontend-vibeshell-contract": path.resolve(import.meta.dirname, "../dev-shell-contract/src/index.ts") } },
   test: {
     environment: "node",
     include: ["tests/{unit,integration}/**/*.test.ts"],

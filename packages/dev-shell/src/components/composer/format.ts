@@ -1,1 +1,1 @@
-export { formatSelection, formatPrompt, formatQueueBundle } from "@hustradio/dev-shell-contract";
+export { formatSelection, formatPrompt, formatQueueBundle } from "@leonhardthust/frontend-vibeshell-contract";

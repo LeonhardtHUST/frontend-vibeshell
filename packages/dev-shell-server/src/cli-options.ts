@@ -1,9 +1,11 @@
 import { parseArgs } from "node:util";
-import { agentBackendSchema } from "@hustradio/dev-shell-contract";
+import { agentBackendSchema } from "@leonhardthust/frontend-vibeshell-contract";
 import { parsePort, type ServerConfig } from "./config.js";
 
-export const HELP = `Usage: dev-shell [start|dev] [options]
-       dev-shell smoke:agents
+export const HELP = `Usage: frontend-vibeshell [start|dev] [options]
+       frontend-vibeshell smoke:agents
+
+The dev-shell command is a compatibility alias.
 
 Options:
   --workspace <path>   Project directory (default: current directory)

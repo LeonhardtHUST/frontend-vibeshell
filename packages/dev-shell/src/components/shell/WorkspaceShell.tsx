@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { BottomSheet, Button } from "@hustradio/unitary-ui";
 import { X } from "lucide-react";
-import type { DomDescriptor } from "@hustradio/dev-shell-contract";
+import type { DomDescriptor } from "@leonhardthust/frontend-vibeshell-contract";
 import { api } from "../../api/client";
 import { useWorkbench } from "../../api/workbench-store";
 import { formatPrompt } from "../composer/format";

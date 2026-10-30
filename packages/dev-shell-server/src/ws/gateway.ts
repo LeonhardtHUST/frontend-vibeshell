@@ -1,7 +1,7 @@
 import type { IncomingMessage } from "node:http";
 import type { Duplex } from "node:stream";
 import { WebSocketServer, WebSocket } from "ws";
-import { clientWsMessageSchema, PROTOCOL_VERSION } from "@hustradio/dev-shell-contract";
+import { clientWsMessageSchema, PROTOCOL_VERSION } from "@leonhardthust/frontend-vibeshell-contract";
 import type { ServerConfig } from "../config.js";
 import { eventEnvelope, type StoredEvent } from "../db/database.js";
 import type { WorkbenchService } from "../domain/workbench.js";

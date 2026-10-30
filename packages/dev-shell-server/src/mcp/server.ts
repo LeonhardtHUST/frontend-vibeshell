@@ -3,8 +3,8 @@ import { z } from "zod";
 import {
   PROTOCOL_VERSION,
   domDescriptorSchema,
-} from "@hustradio/dev-shell-contract";
-import type { Visitor } from "@hustradio/dev-shell-contract";
+} from "@leonhardthust/frontend-vibeshell-contract";
+import type { Visitor } from "@leonhardthust/frontend-vibeshell-contract";
 import type { McpServices } from "./service.js";
 
 const json = (value: unknown) => JSON.stringify(value, null, 2);

@@ -3,7 +3,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import WebSocket from "ws";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { PROTOCOL_VERSION } from "@hustradio/dev-shell-contract";
+import { PROTOCOL_VERSION } from "@leonhardthust/frontend-vibeshell-contract";
 import { createDevShellServer, type DevShellServer } from "../../src/server.js";
 
 let server: DevShellServer; let directory: string; let url: string; let token: string; let streamCursor: string;

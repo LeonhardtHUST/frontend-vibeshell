@@ -298,12 +298,12 @@ importers:
 
   packages/dev-shell:
     dependencies:
-      '@hustradio/dev-shell-contract':
-        specifier: workspace:*
-        version: link:../dev-shell-contract
       '@hustradio/unitary-ui':
         specifier: 0.1.0-beta.1
         version: 0.1.0-beta.1(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+      '@leonhardthust/frontend-vibeshell-contract':
+        specifier: workspace:*
+        version: link:../dev-shell-contract
       lucide-react:
         specifier: ^1.28.0
         version: 1.63.0(@types/react@19.3.0)(react@19.3.1)
@@ -360,7 +360,7 @@ importers:
 
   packages/dev-shell-server:
     dependencies:
-      '@hustradio/dev-shell-contract':
+      '@leonhardthust/frontend-vibeshell-contract':
         specifier: workspace:*
         version: link:../dev-shell-contract
       '@modelcontextprotocol/sdk':

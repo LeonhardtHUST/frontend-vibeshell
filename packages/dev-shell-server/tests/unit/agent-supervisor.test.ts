@@ -4,7 +4,7 @@ import { tmpdir } from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { afterEach, describe, expect, it } from "vitest";
-import type { Settings } from "@hustradio/dev-shell-contract";
+import type { Settings } from "@leonhardthust/frontend-vibeshell-contract";
 import { CodeBuddySupervisor } from "../../src/agent/index.js";
 import type { AgentOutputEvent, AgentSessionState, StartAgentOptions } from "../../src/agent/index.js";
 

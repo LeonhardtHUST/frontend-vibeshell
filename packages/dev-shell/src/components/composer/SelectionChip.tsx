@@ -1,6 +1,6 @@
 import { Badge } from "@hustradio/unitary-ui";
 import { MousePointer2, X } from "lucide-react";
-import type { DomDescriptor } from "@hustradio/dev-shell-contract";
+import type { DomDescriptor } from "@leonhardthust/frontend-vibeshell-contract";
 
 export function SelectionChip({selection, onRemove}: {selection: DomDescriptor; onRemove?: () => void}) {
   return <span className="selection-chip">

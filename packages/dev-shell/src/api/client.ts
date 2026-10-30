@@ -1,9 +1,9 @@
 import type {
   AgentSession, ApiError, DomDescriptor, EventEnvelope, FrameInfo, Message, QueueItem,
   ResourceLease, Settings, TodoItem, TodoList, Visitor, WorkbenchSnapshot,
-} from "@hustradio/dev-shell-contract";
+} from "@leonhardthust/frontend-vibeshell-contract";
 import { bootstrapCreateSchema, bootstrapReadSchema, visitorCredentialsSchema, eventEnvelopeSchema,
-  frameInfoSchema, settingsSchema, leaseResultSchema, agentSessionSchema } from "@hustradio/dev-shell-contract";
+  frameInfoSchema, settingsSchema, leaseResultSchema, agentSessionSchema } from "@leonhardthust/frontend-vibeshell-contract";
 
 export type ActivityItem = EventEnvelope;
 export const EVENT_HISTORY_LIMIT = 1_000;

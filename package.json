@@ -1,20 +1,44 @@
 {
-  "name": "@hustradio/dev-shell",
+  "name": "@leonhardthust/frontend-vibeshell",
   "version": "0.1.0",
   "description": "A local development workbench for browser context, coding agents and MCP collaboration",
   "type": "module",
   "license": "MIT",
-  "author": "HUSTRadio",
-  "repository": {"type": "git", "url": "https://github.com/HUSTRadio/dev-shell.git"},
-  "homepage": "https://github.com/HUSTRadio/dev-shell#readme",
-  "bugs": {"url": "https://github.com/HUSTRadio/dev-shell/issues"},
-  "bin": {"dev-shell": "dist/server/cli.js"},
-  "files": ["dist", "LICENSE", "THIRD_PARTY_NOTICES.md", "SOURCE.md"],
-  "engines": {"node": ">=22.13"},
-  "devEngines": {"packageManager": {"name": "pnpm", "version": "11.20.0", "onFail": "download"}},
-  "publishConfig": {"access": "public"},
+  "author": "LeonhardtHUST",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LeonhardtHUST/frontend-vibeshell.git"
+  },
+  "homepage": "https://github.com/LeonhardtHUST/frontend-vibeshell#readme",
+  "bugs": {
+    "url": "https://github.com/LeonhardtHUST/frontend-vibeshell/issues"
+  },
+  "bin": {
+    "frontend-vibeshell": "dist/server/cli.js",
+    "dev-shell": "dist/server/cli.js"
+  },
+  "files": [
+    "dist",
+    "LICENSE",
+    "THIRD_PARTY_NOTICES.md",
+    "SOURCE.md"
+  ],
+  "engines": {
+    "node": ">=22.13"
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "11.20.0",
+      "onFail": "download"
+    }
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "scripts": {
-    "dev": "concurrently -k -n web,server \"pnpm --filter @hustradio/dev-shell-web dev\" \"pnpm --filter @hustradio/dev-shell-server dev\"",
+    "dev": "concurrently -k -n web,server \"pnpm --filter @leonhardthust/frontend-vibeshell-web dev\" \"pnpm --filter @leonhardthust/frontend-vibeshell-server dev\"",
     "start": "node dist/server/cli.js",
     "build": "node scripts/build.mjs",
     "typecheck": "node scripts/check.mjs typecheck",
@@ -56,5 +80,14 @@
     "typescript": "~6.0.2",
     "vite": "^8.2.0",
     "vitest": "4.1.10"
-  }
+  },
+  "keywords": [
+    "developer-tools",
+    "frontend",
+    "coding-agents",
+    "mcp",
+    "codex",
+    "opencode",
+    "codebuddy"
+  ]
 }

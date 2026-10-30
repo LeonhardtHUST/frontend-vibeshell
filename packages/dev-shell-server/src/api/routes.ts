@@ -6,7 +6,7 @@ import {
   createVisitorSchema, dispatchQueueSchema, enqueueQueueSchema, sendMessageSchema,
   updateSettingsSchema, updateTodoItemSchema,
   PROTOCOL_VERSION,
-} from "@hustradio/dev-shell-contract";
+} from "@leonhardthust/frontend-vibeshell-contract";
 import type { WorkbenchService } from "../domain/workbench.js";
 import { DomainError } from "../domain/errors.js";
 import { actorId, bearerAuth } from "../http/security.js";

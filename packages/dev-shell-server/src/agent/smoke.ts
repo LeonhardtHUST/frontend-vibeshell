@@ -2,7 +2,7 @@ import { randomUUID } from "node:crypto";
 import { mkdir } from "node:fs/promises";
 import path from "node:path";
 import { spawn } from "node:child_process";
-import type { AgentBackend, Settings } from "@hustradio/dev-shell-contract";
+import type { AgentBackend, Settings } from "@leonhardthust/frontend-vibeshell-contract";
 import { AgentSupervisor } from "./supervisor.js";
 import { resolveAgentExecutable } from "./executable.js";
 import { backendErrorPrefix } from "./backends.js";

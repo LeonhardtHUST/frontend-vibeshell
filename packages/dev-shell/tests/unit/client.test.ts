@@ -3,7 +3,7 @@ import {
   PROTOCOL_VERSION,
   type AgentSession, type EventEnvelope, type ResourceLease, type ResourceWaiter,
   type Visitor, type WorkbenchSnapshot,
-} from "@hustradio/dev-shell-contract";
+} from "@leonhardthust/frontend-vibeshell-contract";
 import { ApiClient, EVENT_HISTORY_LIMIT, mergeEventWindow, ShellApiError } from "../../src/api/client";
 
 const id = (value: number) => `00000000-0000-4000-8000-${String(value).padStart(12, "0")}`;

@@ -1,4 +1,4 @@
-import type { AgentBackend } from "@hustradio/dev-shell-contract";
+import type { AgentBackend } from "@leonhardthust/frontend-vibeshell-contract";
 import { execFile } from "node:child_process";
 import { stat } from "node:fs/promises";
 import { promisify } from "node:util";
