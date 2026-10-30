@@ -8,5 +8,5 @@ export default defineConfig({
     "@hustradio/dev-shell-contract": path.join(repository, "packages/dev-shell-contract/src/index.ts"),
     "@shell": path.join(repository, "packages/dev-shell/src"),
   }},
-  test: {environment: "jsdom", include: ["tests/unit/**/*.test.ts?(x)"], restoreMocks: true},
+  test: {environment: "node", include: ["tests/unit/**/*.test.ts?(x)"], restoreMocks: true},
 });
